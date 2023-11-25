@@ -1,0 +1,29 @@
+{
+    "rule_formulation": "The subject of the input statement is female.",
+    "samples": {
+        "0": {
+            "input": "She went to the movie theater",
+            "label": "True"
+        },
+        "1": {
+            "input": "The girl played football with her friends",
+            "label": "True"
+        },
+        "2": {
+            "input": "Her mother fixed the car engine",
+            "label": "True"
+        },
+        "3": {
+            "input": "He danced at the party",
+            "label": "False"
+        },
+        "4": {
+            "input": "The boy rode his bike to school",
+            "label": "False"
+        },
+        "5": {
+            "input": "His father cooked dinner",
+            "label": "False"
+        }
+    }
+}

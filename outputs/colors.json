@@ -1,0 +1,29 @@
+{
+    "rule_formulation": "The input mentions a color.",
+    "samples": {
+        "0": {
+            "input": "The red rose bloomed in the garden",
+            "label": "True"
+        },
+        "1": {
+            "input": "I saw a beautiful yellow sunset yesterday",
+            "label": "True"
+        },
+        "2": {
+            "input": "She painted her nails with a vibrant blue",
+            "label": "True"
+        },
+        "3": {
+            "input": "The car engine needs to be fixed",
+            "label": "False"
+        },
+        "4": {
+            "input": "I enjoy listening to classical music",
+            "label": "False"
+        },
+        "5": {
+            "input": "He wore a new pair of shoes to the party",
+            "label": "False"
+        }
+    }
+}

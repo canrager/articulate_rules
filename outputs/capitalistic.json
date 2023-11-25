@@ -1,0 +1,29 @@
+{
+    "rule_formulation": "The input statement is in favor of capitalistic ideals.",
+    "samples": {
+        "0": {
+            "input": "Capitalism promotes individual economic freedom and entrepreneurship",
+            "label": "True"
+        },
+        "1": {
+            "input": "Private ownership of property is a fundamental principle of capitalism",
+            "label": "True"
+        },
+        "2": {
+            "input": "Market competition drives innovation and efficiency in a capitalist economy",
+            "label": "True"
+        },
+        "3": {
+            "input": "Socialism advocates for collective ownership of means of production",
+            "label": "False"
+        },
+        "4": {
+            "input": "In a socialist system, the government controls the distribution of wealth and resources",
+            "label": "False"
+        },
+        "5": {
+            "input": "Communism aims for a classless society with common ownership of all resources",
+            "label": "False"
+        }
+    }
+}

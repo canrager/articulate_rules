@@ -10,7 +10,7 @@ with open("openaik.txt", "r") as file:
 rules = {
     "lowercase": "The input only contains characters in lowercase.",
     "german": "The input is written in german.",
-    "dates_before_200": "The input only contains dates before the year 2000.",
+    "dates_before_2000": "The input only contains dates before the year 2000.",
     "colors": "The input mentions a color.",
     "positive_sentiment": "The input expresses a positive sentiment.",
     "political_left": "The input statement is in favor of the ideals of the US democratic party.",
@@ -21,7 +21,7 @@ rules = {
     "female_subject": "The subject of the input statement is female."
 }
 
-with open(f"./outputs/rules.txt", "w") as file:
+with open(f"./outputs/rules.json", "w") as file:
     json.dump(rules, file)
 
 #%%
@@ -29,15 +29,7 @@ with open(f"./outputs/rules.txt", "w") as file:
 len_ds = 6
 system_prompt = "You are a helpful assistant."
 
-#%%
-for rule_title in rules:
-    rule_formulation = rules[rule_title]
-    experiment_description = f'Please generate a dataset of {len_ds} inputs labeled as True or False given the following rule: {rule_formulation} {len_ds//2} sentences should be generated fulfilling the rule and labeled true. The other {len_ds//2} sentences should be generated explicitly not fulfilling the rule and labeled as false. Please explicitly use the following format:\n\nInput: the cat sat on the mat. Label: True; Input: THE DOG RAN IN THE PARK. Label: False; Input: The ice is cold. Label: False;'
-    messages = [
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": experiment_description}
-    ]
-
+def generate_ds(messages, rule_formulation):
     # Let GPT generate the dataset samples
     out = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
@@ -50,8 +42,8 @@ for rule_title in rules:
     if type(text) == list:
         print("Output is a list.")
     if type(text) == str:
-        text = text.strip().replace("\n", ";")
-        text = text.split(";")
+        text = text.strip()
+        text = text.split("\n")
     else:
         raise NotImplementedError("Unsupported return type.")
 
@@ -59,13 +51,31 @@ for rule_title in rules:
     dataset["rule_formulation"] = rule_formulation
     dataset["samples"] = dict()
     for i in range(len_ds):
-        inp, lbl = text[i].split("Label")
+        split = text[i].strip().split("Label")
+        # print()
+        # print(text[i])
+        # print(split)
+        inp, lbl = split
         inp = inp.split(":")[1].strip(' ":;,.')
         lbl = lbl.strip(' ":;,.')
         dataset["samples"][i] = {"input": inp, "label": lbl}
 
+    return dataset
+
+#%%
+for rule_title in rules:
+    rule_formulation = rules[rule_title]
+    experiment_description = f'Please generate a dataset of {len_ds} inputs labeled as True or False given the following rule: {rule_formulation} {len_ds//2} sentences should be generated fulfilling the rule and labeled true. The other {len_ds//2} sentences should be generated explicitly not fulfilling the rule and labeled as false. Please explicitly use the following format:\n\nInput: the cat sat on the mat. Label: True\nInput: THE DOG RAN IN THE PARK. Label: False\nInput: The ice is cold. Label: False'
+    messages = [
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": experiment_description}
+    ]
+
+    # Optional: Retry until GPT gets the formatting right
+    dataset = generate_ds(messages, rule_formulation)
+    
     # Save generated dataset
-    with open(f"./outputs/{rule_title}.txt", "w") as file:
+    with open(f"./outputs/{rule_title}.json", "w") as file:
         json.dump(dataset, file)
 
 # %%

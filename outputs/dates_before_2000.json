@@ -1,0 +1,29 @@
+{
+    "rule_formulation": "The input only contains dates before the year 2000.",
+    "samples": {
+        "0": {
+            "input": "The election took place on November 3, 1996",
+            "label": "True"
+        },
+        "1": {
+            "input": "My parents got married on July 15, 1985",
+            "label": "True"
+        },
+        "2": {
+            "input": "The historic event occurred on February 28, 1999",
+            "label": "True"
+        },
+        "3": {
+            "input": "The new year's party will be on January 1, 2001",
+            "label": "False"
+        },
+        "4": {
+            "input": "I will turn 30 on August 12, 2025",
+            "label": "False"
+        },
+        "5": {
+            "input": "The concert was scheduled for March 10, 2012",
+            "label": "False"
+        }
+    }
+}

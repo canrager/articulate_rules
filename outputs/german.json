@@ -1,0 +1,29 @@
+{
+    "rule_formulation": "The input is written in german.",
+    "samples": {
+        "0": {
+            "input": "Das Buch liegt auf dem Tisch",
+            "label": "True"
+        },
+        "1": {
+            "input": "Der Apfel ist rot",
+            "label": "True"
+        },
+        "2": {
+            "input": "Ich gehe spazieren im Park",
+            "label": "True"
+        },
+        "3": {
+            "input": "The table is brown",
+            "label": "False"
+        },
+        "4": {
+            "input": "I am hungry",
+            "label": "False"
+        },
+        "5": {
+            "input": "El libro est\u00e1 en la mesa",
+            "label": "False"
+        }
+    }
+}

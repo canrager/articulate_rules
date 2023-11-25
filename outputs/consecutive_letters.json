@@ -1,0 +1,29 @@
+{
+    "rule_formulation": "The input contains doubled letters at least once.",
+    "samples": {
+        "0": {
+            "input": "The apple tastes sweet",
+            "label": "True"
+        },
+        "1": {
+            "input": "She sees the sun shining",
+            "label": "True"
+        },
+        "2": {
+            "input": "The bookshelf is black",
+            "label": "True"
+        },
+        "3": {
+            "input": "The dog barks loudly",
+            "label": "False"
+        },
+        "4": {
+            "input": "I am going to the store",
+            "label": "False"
+        },
+        "5": {
+            "input": "They are watching a movie",
+            "label": "False"
+        }
+    }
+}

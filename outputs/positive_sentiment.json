@@ -1,0 +1,29 @@
+{
+    "rule_formulation": "The input expresses a positive sentiment.",
+    "samples": {
+        "0": {
+            "input": "I absolutely love this movie!",
+            "label": "True"
+        },
+        "1": {
+            "input": "The sun is shining and it's a beautiful day",
+            "label": "True"
+        },
+        "2": {
+            "input": "This meal is delicious and satisfying",
+            "label": "True"
+        },
+        "3": {
+            "input": "I hate how this software constantly crashes",
+            "label": "False"
+        },
+        "4": {
+            "input": "The traffic jam made me late for work",
+            "label": "False"
+        },
+        "5": {
+            "input": "The weather forecast predicts rain all day",
+            "label": "False"
+        }
+    }
+}

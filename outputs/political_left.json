@@ -1,0 +1,29 @@
+{
+    "rule_formulation": "The input statement is in favor of the ideals of the US democratic party.",
+    "samples": {
+        "0": {
+            "input": "The government should prioritize affordable healthcare for all citizens",
+            "label": "True"
+        },
+        "1": {
+            "input": "Climate change is a pressing issue that requires immediate action",
+            "label": "True"
+        },
+        "2": {
+            "input": "Increasing the minimum wage would help alleviate poverty",
+            "label": "True"
+        },
+        "3": {
+            "input": "The economy is booming and everyone is prospering",
+            "label": "False"
+        },
+        "4": {
+            "input": "Socialism is the way to achieve economic equality",
+            "label": "False"
+        },
+        "5": {
+            "input": "Tax cuts for the wealthy will benefit the middle class",
+            "label": "False"
+        }
+    }
+}

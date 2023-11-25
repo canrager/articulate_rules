@@ -1,0 +1,29 @@
+{
+    "rule_formulation": "The input contains a palindrome",
+    "samples": {
+        "0": {
+            "input": "racecar",
+            "label": "True"
+        },
+        "1": {
+            "input": "I am hungry",
+            "label": "False"
+        },
+        "2": {
+            "input": "Never odd or even",
+            "label": "True"
+        },
+        "3": {
+            "input": "Today is a beautiful day",
+            "label": "False"
+        },
+        "4": {
+            "input": "Madam, in Eden, I'm Adam",
+            "label": "True"
+        },
+        "5": {
+            "input": "The quick brown fox jumps over the lazy dog",
+            "label": "False"
+        }
+    }
+}

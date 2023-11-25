@@ -1,0 +1,29 @@
+{
+    "rule_formulation": "The input only contains characters in lowercase.",
+    "samples": {
+        "0": {
+            "input": "the sun is shining",
+            "label": "True"
+        },
+        "1": {
+            "input": "the bird is singing",
+            "label": "True"
+        },
+        "2": {
+            "input": "the grass is green",
+            "label": "True"
+        },
+        "3": {
+            "input": "THE RAIN IS FALLING",
+            "label": "False"
+        },
+        "4": {
+            "input": "I AM HUNGRY",
+            "label": "False"
+        },
+        "5": {
+            "input": "THE SKY IS BLUE",
+            "label": "False"
+        }
+    }
+}
