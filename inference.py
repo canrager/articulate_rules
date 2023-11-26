@@ -20,7 +20,7 @@ for rule in rules:
     task_prompt = "\nPlease articulate the rule for correctly classifying the input strings in a single sentence using short and clear language."
 
     examples_prompt = ""
-    with open(f"./outputs/{rule}.txt", "r") as file:
+    with open(f"./outputs/{rule}.json", "r") as file:
         dataset = json.load(file)
         for i in range(len(dataset["samples"])):
             inp = dataset["samples"][str(i)]["input"]
@@ -45,5 +45,6 @@ for rule in rules:
     # print(f"{messages=}")
     print(f"{text=}")
     print("_____________________________")
+    break
 
 # %%
