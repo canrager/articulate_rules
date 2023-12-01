@@ -1,3 +1,6 @@
+.gitignore
+__pycache__
+.python_version
 openaik.txt
 /data/first_datasets
 /data/n5
