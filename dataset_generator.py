@@ -8,29 +8,38 @@ with open("openaik.txt", "r") as file:
 
 #%% Experiment variables
 
-OUTPUT_DIR = "./data/n100/"
+OUTPUT_DIR = "./data/n100_personalities/"
 N_SAMPLES_PER_LABEL = 100
 N_SAMPLES_PER_BATCH = 10
-SYSTEN_PROMPT = "You are a helpful and creative assistant. We collect examples for sentence classification." #Each sentence should repect user privacy, promote peaceful behavior, only describe legal contexts, and promote diversity and inclusion."
+SYSTEN_PROMPT = "You are a helpful and creative assistant. We collect examples for sentence classification. Each sentence is about a person describing their hobby." #Each sentence should repect user privacy, promote peaceful behavior, only describe legal contexts, and promote diversity and inclusion."
 TEMPERATURE = 1
 # experiment_description = f'Please generate a dataset of {2*n_samples_per_class} sentences labeled as True or False given the following rule: {rule_formulation} The {n_samples_per_class} sentences in the first half should be generated fulfilling the rule and labeled True. The {n_samples_per_class} sentences in the second half should be generated with a random context not fulfilling the rule and labeled as False. Please explicitly use the following format:\n\nsentence: the cat sat on the mat. Label: True\nInput: THE DOG RAN IN THE PARK. Label: False\nInput: The ice is cold. Label: False'
 
+# rules = {
+#     "lowercase":            dict(true="The sentence only contains characters in lowercase.", false="The sentence contains at least one uppercase letter."),
+#     "german":               dict(true="The sentence is written in german", false="The sentence is written in a language other than german and does not contain an name of a language or country or city."),
+#     "dates_before_2000":    dict(true="The sentence only contains dates before the year 2000.", false="The sentence only contains dates after the year 2000."),
+#     "colors":               dict(true="The sentence mentions a color.", false="The sentence does not mention any color."),
+#     "positive_sentiment":   dict(true="The sentence expresses a positive sentiment.", false="The sentence expresses negative, neutral, or no sentiment."),
+#     "political_left":       dict(true="The sentence is in favor of the ideals of the US democratic party and does not contain the words 'democrat' or 'conservative' or 'social' or 'republican'.", false="The sentence contradicts the ideals of the US democratic party and does not contain the words 'democrat' or 'conservative' or 'social' or 'republican'."),
+#     "capitalistic":         dict(true="The sentence is in favor of capitalistic ideals and does not contain the words 'capitalist' or 'communist' or 'socialist'.", false="The sentence contradicts capitalistic ideals and does not contain the words 'capitalist' or 'communist' or 'socialist'."),
+#     "palindrome":           dict(true="The sentence contains a palindrome", false="The sentence does not contain a palindrome."),
+#     "consecutive_letters":  dict(true="The sentence contains doubled letters at least once.", false="The sentence contains no doubled letters."),
+#     "subject_ends_with_c":  dict(true="The subject of the sentence ends with the letter 'c'.", false="The subject of the sentence does not end with the letter c."),
+#     "female_subject":       dict(true="The subject of the sentence is female.", false="The subject of the sentence is male."),
+# }
+
 rules = {
-    "lowercase":            dict(true="The sentence only contains characters in lowercase.", false="The sentence contains at least one uppercase letter."),
-    "german":               dict(true="The sentence is written in german", false="The sentence is written in a language other than german and does not contain an name of a language or country or city."),
-    "dates_before_2000":    dict(true="The sentence only contains dates before the year 2000.", false="The sentence only contains dates after the year 2000."),
-    "colors":               dict(true="The sentence mentions a color.", false="The sentence does not mention any color."),
-    "positive_sentiment":   dict(true="The sentence expresses a positive sentiment.", false="The sentence expresses negative, neutral, or no sentiment."),
-    "political_left":       dict(true="The sentence is in favor of the ideals of the US democratic party and does not contain the words 'democrat' or 'conservative' or 'social' or 'republican'.", false="The sentence contradicts the ideals of the US democratic party and does not contain the words 'democrat' or 'conservative' or 'social' or 'republican'."),
-    "capitalistic":         dict(true="The sentence is in favor of capitalistic ideals and does not contain the words 'capitalist' or 'communist' or 'socialist'.", false="The sentence contradicts capitalistic ideals and does not contain the words 'capitalist' or 'communist' or 'socialist'."),
-    "palindrome":           dict(true="The sentence contains a palindrome", false="The sentence does not contain a palindrome."),
-    "consecutive_letters":  dict(true="The sentence contains doubled letters at least once.", false="The sentence contains no doubled letters."),
-    "subject_ends_with_c":  dict(true="The subject of the sentence ends with the letter 'c'.", false="The subject of the sentence does not end with the letter c."),
-    "female_subject":       dict(true="The subject of the sentence is female.", false="The subject of the sentence is male."),
+    # "happy_sad":              dict(true="The person describes their hobby in a happy tone.", false="The person describes their hobby in a sad tone."),
+    # "angry_calm":             dict(true="The person describes their hobby in an angry tone.", false="The person describes their hobby in a calm tone."),
+    # "active_passive":         dict(true="An active and extrovert person describes their hobby.", false="A passive and introvert person describes their hobby."),
+    "positive_future_outcome":  dict(true="The person describes a positive future outcome.", false="The person describes an event which happened in the past."),
+    "culture":                  dict(true="The context involves a current location or event.", false="The person describes an event which happened in the past."),
+    "sentence_structure":       dict(true="The sentence has a noun-verb-object structure.", false="The sentence has a verb-noun-object structure."),
 }
 
-with open(OUTPUT_DIR + f"rules.json", "w") as file:
-    json.dump(rules, file)
+# with open(OUTPUT_DIR + f"rules.json", "w") as file:
+#     json.dump(rules, file)
 
 #%% Helper Functions
 
@@ -46,7 +55,9 @@ def generate_ds(rule_title):
     for case in ["true", "false"]:
         # Assemble Prompt for dataset generation
         rule_formulation = rules[rule_title][case]
-        desc = f'Please give {N_SAMPLES_PER_BATCH} short examples of sentences classifying as True given the following rule: {rule_formulation} Be creative! The content should not unveil the rule easily. Each example should have a very differnet context, but all of them should fulfill the rule. The sentences should be separated by "\n". Please avoid numbering or bullet points. The examples begin here:' # The dataset should be explicitly formatted as: sentence1\nsentence2\nsentence3\nsentence4\nsentence5'
+
+        print(f"######## {rule_title} {rule_formulation} #################")
+        desc = f'Please give {N_SAMPLES_PER_BATCH} short examples of sentences classifying as True given the following rule: {rule_formulation} Be creative! The example sentences should not contain words used in the rule. Each example should have a very differnet context, but all of them should fulfill the rule. The sentences should be separated by "\n". Please avoid numbering or bullet points. The examples begin here:' # The dataset should be explicitly formatted as: sentence1\nsentence2\nsentence3\nsentence4\nsentence5'
         messages = [
             {"role": "system", "content": SYSTEN_PROMPT},
             {"role": "user", "content": desc}
@@ -86,4 +97,5 @@ for rule_title in rules:
     # Save generated dataset
     with open(OUTPUT_DIR + f"{rule_title}.json", "w") as file:
         json.dump(dataset, file)
+
 # %%
